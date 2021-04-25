@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
-
+import * as Progress from 'react-native-progress';
 export default class FlashSaleItem extends Component {
     render() {
         const { item_fs } = this.props;
@@ -12,7 +12,9 @@ export default class FlashSaleItem extends Component {
                     style={styles.image}
                     source={{ uri: item_fs.url }}
                 />
-                <Text style={styles.price}>{item_fs.price}</Text>
+                <Text style={styles.price}>₫ {item_fs.price}</Text>
+                <Progress.Bar color={'#ee4d2d'} progress={item_fs.progress} width={80} >
+                </Progress.Bar>
             </View>
         )
     }
@@ -20,14 +22,14 @@ export default class FlashSaleItem extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        height: 180,
+        height: 170,
         flexDirection: 'column',
         alignItems: 'center',
-        marginHorizontal: 10,
-        marginVertical: 5,
+        marginHorizontal: 3,
+        marginVertical: 6,
         backgroundColor: 'white',
-        borderWidth: 0.4,
-        borderRadius: 2
+        borderRadius: 2,
+        padding: 1,
     },
     image: {
         height: 120,
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 20,
         color: '#ee4d2d',
-        textAlign: 'center'
-    }
+        textAlign: 'center',
+        marginVertical: 8
+    },
 })

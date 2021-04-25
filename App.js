@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { SafeAreaView, Platform } from 'react-native'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import Cart from './src/screens/Cart'
 import Login from './src/screens/Login'
 import MainScreen from './src/screens/MainScreen'
+import ProductInfor from './src/screens/ProductInfor'
 
 const defaultStore = {
   card_item: 0,
@@ -26,7 +28,7 @@ export default class App extends Component {
     return (
       <SafeAreaView style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 10 : 0 }}>
         <Provider store={store}>
-          <MainScreen />
+          <Cart />
         </Provider>
       </SafeAreaView>
     )

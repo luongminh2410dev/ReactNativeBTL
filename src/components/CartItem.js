@@ -1,0 +1,174 @@
+import React, { Component } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import CheckBox from '@react-native-community/checkbox';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+const count = 1;
+Increase = () => {
+    count = count + 1;
+}
+Decrease = () => {
+    count = count - 1;
+}
+export default class CartItem extends Component {
+    render() {
+        const { cart_item } = this.props;
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <View style={styles.header_1}>
+                        <CheckBox
+                            disabled={false}
+                            onCheckColor={'#ee4d2d'}
+                            tintColor={'#ee4d2d', 'white'}
+                        // value={true}
+                        // onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                        />
+                        <MaterialIcons name="storefront" size={28} color="#000" />
+                        <Text style={styles.shop_name}>{cart_item.shop_name}</Text>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.header_2}
+                    >
+                        <Text style={styles.header_2_txt}>Sửa</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.main}>
+                    <CheckBox
+                        disabled={false}
+                        onCheckColor={'#ee4d2d'}
+                        tintColor={'#ee4d2d', 'white'}
+                    />
+                    <Image
+                        style={styles.main_img}
+                        source={{ uri: cart_item.url }}
+                    />
+                    <View style={styles.main_info}>
+                        <Text style={styles.name_product} >{cart_item.name}</Text>
+                        <View style={styles.main_info_sort}>
+                            <Text style={styles.main_info_sort_txt}>Phân loại: Đen</Text>
+                        </View>
+                        <Text style={styles.price}>₫ {cart_item.price}</Text>
+                        <View style={styles.main_amount}>
+                            <TouchableOpacity
+                                style={styles.amount_btn}
+                            // onPress={this.Increase()}
+                            >
+                                <AntDesign name="minus" size={20} color="#000" />
+                            </TouchableOpacity>
+                            <View style={styles.count}>
+                                <Text>{count}</Text>
+                            </View>
+                            <TouchableOpacity
+                                style={styles.amount_btn}
+                            // onPress={this.Decrease()}
+                            >
+                                <AntDesign name="plus" size={20} color="#000" />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+}
+const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        backgroundColor: 'white',
+        flexDirection: 'column',
+        marginTop: 8,
+    },
+    header: {
+        width: '100%',
+        flexDirection: 'row',
+        borderBottomWidth: 0.3,
+        paddingHorizontal: 8,
+
+        borderColor: 'gray',
+        justifyContent: 'space-between'
+    },
+    header_1: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    shop_name: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginLeft: 4,
+    },
+    header_2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    header_2_txt: {
+        fontSize: 16,
+        color: 'gray',
+    },
+    main: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginHorizontal: 8,
+        paddingVertical: 8
+    },
+    main_img: {
+        height: 100,
+        width: 100,
+        marginVertical: 8
+        // borderWidth: 0.3,
+        // borderColor: 'gray'
+    },
+    main_info: {
+        flex: 1,
+        height: 120,
+        flexDirection: 'column',
+        marginHorizontal: 8,
+    },
+    name_product: {
+        width: '100%',
+        fontSize: 16,
+        height: 22,
+        overflow: 'hidden'
+    },
+    main_info_sort: {
+        marginVertical: 8,
+        backgroundColor: '#f5f5f5',
+        padding: 2,
+        width: 110,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    price: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#ee4d2d',
+        textAlign: 'left'
+    },
+    main_amount: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        // backgroundColor: 'red',  
+        width: 90,
+        borderWidth: 0.3,
+        borderColor: 'gray',
+        marginVertical: 8
+    },
+    amount_btn: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 2,
+    },
+    count: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderLeftWidth: 0.3,
+        borderRightWidth: 0.3,
+        borderColor: 'gray'
+    }
+})
+

@@ -6,12 +6,13 @@ import { SliderBox } from "react-native-image-slider-box"
 import { connect } from 'react-redux'
 import ItemMenu from '../components/ItemMenu'
 import FlashSaleItem from '../components/FlashSaleItem'
+import ProductItem from '../components/ProductItem'
 const slide_img = [
-    'https://cf.shopee.vn/file/82f410d470e9d1a4f62fd46836fe224c',
-    'https://cf.shopee.vn/file/da8269c20d5e8dff851cafee7af2a4c5',
-    'https://cf.shopee.vn/file/d6ba9e23455e89cad388173f7b3ecbc2',
-    'https://cf.shopee.vn/file/0d6e19c282bcd87c8c2c20c3e8be7b47',
-    'https://cf.shopee.vn/file/0b404244856c8a8f07da9f48387df83b',
+    'https://shopee.vn/affiliate/wp-content/uploads/2020/04/1200x628.jpg',
+    'https://cf.shopee.vn/file/db967f3d3c48290131a6b4835c45817e',
+    'https://mb.com.ph/wp-content/uploads/2021/02/3.3-4.4-PR-KV.jpg',
+    'hhttps://i.pinimg.com/originals/c9/a3/e0/c9a3e0b928a26a3ac18cb441ddfe047e.jpg',
+    'https://chanhtuoi.vn1.vdrive.vn/uploads/2020/02/freeship-extra-shopee-1582086098.png',
 ]
 const menu_item = [
     { id: 1, name: 'Khung giờ săn sale', url: 'https://cf.shopee.vn/file/e147155a22672fb7196505dccbe2bd6f_xhdpi&quot' },
@@ -26,93 +27,117 @@ const menu_item = [
     { id: 10, name: 'Shopee Premium', url: 'https://cf.shopee.vn/file/0a3e3aa16b083d6b7e2c25a8f2c16731_xhdpi&quot' },
 ]
 const fs_item = [
-    { id: 1, name: 'ARIEL MATIC NƯỚC GIẶT TÚI 3.5KG/3.2KG', price: '15.000', url: 'https://cf.shopee.vn/file/bb7dc00839c48880405200d1ac03e05e_tn&quot' },
-    { id: 2, name: 'VÁY BÉ GÁI 2 LỚP DÁNG XÒE TAY 2 TẦNG SIÊU XINH XẮN BELLO LAND', price: '2.000.000', url: 'https://cf.shopee.vn/file/6ef0ee4fe0e94954541919d4d26cd90a_tn&quot' },
-    { id: 3, name: '', price: '36.000', url: 'https://cf.shopee.vn/file/736853cba44dc7d26afd0e46078b9451_tn&quot' },
-    { id: 4, name: '', price: '1.000', url: 'https://cf.shopee.vn/file/1ba13ff64ba10e687a79847c48ef9528_tn&quot' },
-    { id: 5, name: '', price: '99.000', url: 'https://cf.shopee.vn/file/a0d0a6083a1fd0570bc795f3369b9b60_tn&quot' },
-    { id: 6, name: '', price: '20.000', url: 'https://cf.shopee.vn/file/49007b236adc23e7e602e1e7f3a93780_tn&quot' },
-    { id: 7, name: '', price: '1.999.000', url: 'https://cf.shopee.vn/file/1d0aa274da8569c6265103058552567c_tn&quot' },
+    { id: 1, name: 'ARIEL MATIC NƯỚC GIẶT TÚI 3.5KG/3.2KG', price: '15.000', traded: 2, progress: 0.9, url: 'https://cf.shopee.vn/file/bb7dc00839c48880405200d1ac03e05e_tn&quot' },
+    { id: 2, name: 'VÁY BÉ GÁI 2 LỚP DÁNG XÒE TAY 2 TẦNG SIÊU XINH XẮN BELLO LAND', price: '2.000.000', traded: 2, progress: 0.1, url: 'https://cf.shopee.vn/file/6ef0ee4fe0e94954541919d4d26cd90a_tn&quot' },
+    { id: 3, name: 'A', price: '36.000', traded: 20, progress: 0, url: 'https://cf.shopee.vn/file/736853cba44dc7d26afd0e46078b9451_tn&quot' },
+    { id: 4, name: 'B', price: '1.000', traded: 100, progress: 0.5, url: 'https://cf.shopee.vn/file/1ba13ff64ba10e687a79847c48ef9528_tn&quot' },
+    { id: 5, name: 'C', price: '99.000', traded: 900, progress: 0.4, url: 'https://cf.shopee.vn/file/a0d0a6083a1fd0570bc795f3369b9b60_tn&quot' },
+    { id: 6, name: 'D', price: '20.000', traded: 1, progress: 1, url: 'https://cf.shopee.vn/file/49007b236adc23e7e602e1e7f3a93780_tn&quot' },
+    { id: 7, name: 'E', price: '1.999.000', traded: 56, progress: 0.1, url: 'https://cf.shopee.vn/file/1d0aa274da8569c6265103058552567c_tn&quot' },
 ]
 const MainScreen = () => {
     return (
-        <View style={styles.container}>
+        <ScrollView
+            style={{ flexDirection: 'column' }}
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={styles.container}>
 
-            {/* Header search */}
-            <View style={styles.header_search}>
-                <View style={styles.searchSection}>
-                    <AntDesign style={styles.searchIcon} name="search1" size={20} color="#000" />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Find something..."
-                        underlineColorAndroid="transparent"
-                        editable={true}
-                    />
+                {/* Header search */}
+                <View style={styles.header_search}>
+                    <View style={styles.searchSection}>
+                        <AntDesign style={styles.searchIcon} name="search1" size={20} color="#000" />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Find something..."
+                            underlineColorAndroid="transparent"
+                            editable={true}
+                        />
+                    </View>
+                    <View style={styles.cart_view}>
+                        <Text style={styles.cart_text}>7</Text>
+                        <Ionicons name="cart-outline" size={34} color="white" />
+                    </View>
+                    <View style={styles.cart_view}>
+                        <Text style={styles.message_text}>7</Text>
+                        <AntDesign name="message1" size={28} color="white" />
+                    </View>
                 </View>
-                <View style={styles.cart_view}>
-                    <Text style={styles.cart_text}>7</Text>
-                    <Ionicons name="cart-outline" size={34} color="white" />
-                </View>
-                <View style={styles.cart_view}>
-                    <Text style={styles.message_text}>7</Text>
-                    <AntDesign name="message1" size={28} color="white" />
-                </View>
-            </View>
 
 
-            <SliderBox
-                images={slide_img}
-                sliderBoxHeight={180}
-                dotColor={'#ee4d2d'}
-                imageLoadingColor={'white'}
-                resizeMode={'stretch'}
-                autoplay={true}
-                circleLoop={true}
-            />
-            {/* Menu */}
-            <FlatList
-                style={styles.flat_list}
-                numColumns={5}
-                data={menu_item}
-                keyExtractor={(item, index) => item.id.toString()}
-                renderItem={({ item, index }) => (
-                    <ItemMenu
-                        item_menu={item}
-                    />
-                )}
-            />
-
-
-            {/* Flash Sale */}
-            <View style={styles.fs_list}>
-                <View style={styles.fs_list_header}>
-                    <Image
-                        style={styles.fs_list_img}
-                        source={{
-                            uri: 'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/fb1088de81e42c4e538967ec12cb5caa.png',
-                        }}
-                    />
-                    <TouchableOpacity
-                    >
-                        <Text style={styles.fs_list_btn}>Xem tất cả</Text>
-                    </TouchableOpacity>
-                </View>
+                <SliderBox
+                    images={slide_img}
+                    sliderBoxHeight={180}
+                    dotColor={'white'}
+                    imageLoadingColor={'white'}
+                    resizeMode={'stretch'}
+                    autoplay={true}
+                    circleLoop={true}
+                />
+                {/* Menu */}
                 <FlatList
-                    style={styles.flat_list_2}
-                    horizontal
-                    pagingEnabled={true}
-                    showsHorizontalScrollIndicator={false}
-                    legacyImplementation={false}
-                    data={fs_item}
+                    style={styles.flat_list}
+                    numColumns={5}
+                    data={menu_item}
                     keyExtractor={(item, index) => item.id.toString()}
                     renderItem={({ item, index }) => (
-                        <FlashSaleItem
-                            item_fs={item}
+                        <ItemMenu
+                            item_menu={item}
                         />
                     )}
                 />
+
+
+                <View style={styles.list_container}>
+                    {/* Flash Sale */}
+                    <View style={styles.fs_list}>
+                        <View style={styles.fs_list_header}>
+                            <Image
+                                style={styles.fs_list_img}
+                                source={{
+                                    uri: 'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/fb1088de81e42c4e538967ec12cb5caa.png',
+                                }}
+                            />
+                            <TouchableOpacity
+                            >
+                                <Text style={styles.fs_list_btn}>Xem tất cả</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <FlatList
+                            style={styles.flat_list2}
+                            horizontal
+                            pagingEnabled={true}
+                            showsHorizontalScrollIndicator={false}
+                            legacyImplementation={false}
+                            data={fs_item}
+                            keyExtractor={(item, index) => item.id.toString()}
+                            renderItem={({ item, index }) => (
+                                <FlashSaleItem
+                                    item_fs={item}
+                                />
+                            )}
+                        />
+                    </View>
+                    <View styles={styles.product_list}>
+                        <View style={styles.product_list_header}>
+                            <Text style={styles.product_list_text}>GỢI Ý HÔM NAY</Text>
+                        </View>
+                        <FlatList
+                            style={styles.flat_list3}
+                            numColumns={2}
+                            data={fs_item}
+                            keyExtractor={(item, index) => item.id.toString()}
+                            renderItem={({ item, index }) => (
+                                <ProductItem
+                                    item_fs={item}
+                                />
+                            )}
+                        />
+                    </View>
+                </View>
             </View>
-        </View>
+
+        </ScrollView>
     )
 }
 
@@ -194,15 +219,33 @@ const styles = StyleSheet.create({
     // Header slide image
     // Menu
     flat_list: {
-        height: 300
+        height: 300,
+        marginBottom: 0,
+        paddingBottom: 0,
+        flexGrow: 0,
+    },
+    flat_list2: {
+        height: 190,
+        marginBottom: 0,
+        paddingBottom: 0,
+    },
+    flat_list3: {
+        marginBottom: 0,
+        paddingBottom: 0,
+        paddingHorizontal: 3,
     },
 
+    list_container: {
+        flexDirection: 'column',
+        backgroundColor: '#eeeeee',
+    },
     // Flash Sale
     fs_list: {
         flexDirection: 'column',
-        marginTop: -170,
-        backgroundColor: '#f5f5f5',
+        marginTop: -120,
+        backgroundColor: 'white',
         justifyContent: 'center',
+        marginBottom: 10,
     },
 
     fs_list_header: {
@@ -222,7 +265,22 @@ const styles = StyleSheet.create({
     fs_list_btn: {
         color: '#ee4d2d',
     },
-    flat_list_2: {
-        height: 300,
+
+    // Product list
+    product_list: {
+        flexDirection: 'column'
     },
+    product_list_header: {
+        height: 40,
+        paddingTop: 4,
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    product_list_text: {
+        color: '#ee4d2d',
+        fontSize: 16,
+        fontWeight: '600'
+    }
 })
