@@ -28,7 +28,7 @@ export default class App extends Component {
     return (
       <SafeAreaView style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 10 : 0 }}>
         <Provider store={store}>
-          <Cart />
+          <ProductInfor />
         </Provider>
       </SafeAreaView>
     )

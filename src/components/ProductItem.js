@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
+import PropTypes from 'prop-types';
 
 export default class ProductItem extends Component {
+    static propTypes = {
+        item_fs: PropTypes.object,
+    }
+    static defaultProps = {
+        item_fs: []
+    }
     render() {
         const { item_fs } = this.props;
         return (

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         height: 140,
         resizeMode: "cover",
         justifyContent: "center",
-        marginVertical: 10,
+        marginVertical: 50,
     },
 
     txt_login: {
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontSize: 24,
         padding: 8,
-        marginBottom: 50,
     },
     login_form: {
         flexDirection: 'column',

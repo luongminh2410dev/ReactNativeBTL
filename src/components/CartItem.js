@@ -3,14 +3,20 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import CheckBox from '@react-native-community/checkbox';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-const count = 1;
-Increase = () => {
-    count = count + 1;
-}
-Decrease = () => {
-    count = count - 1;
-}
+import PropTypes from 'prop-types';
 export default class CartItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 1,
+        };
+    }
+    Increase = () => {
+        this.setState({ count: this.state.count + 1 });
+    }
+    Decrease = () => {
+        this.setState({ count: this.state.count - 1 });
+    }
     render() {
         const { cart_item } = this.props;
         return (
@@ -52,16 +58,16 @@ export default class CartItem extends Component {
                         <View style={styles.main_amount}>
                             <TouchableOpacity
                                 style={styles.amount_btn}
-                            // onPress={this.Increase()}
+                                onPress={() => this.Decrease()}
                             >
                                 <AntDesign name="minus" size={20} color="#000" />
                             </TouchableOpacity>
                             <View style={styles.count}>
-                                <Text>{count}</Text>
+                                <Text>{this.state.count}</Text>
                             </View>
                             <TouchableOpacity
                                 style={styles.amount_btn}
-                            // onPress={this.Decrease()}
+                                onPress={() => this.Increase()}
                             >
                                 <AntDesign name="plus" size={20} color="#000" />
                             </TouchableOpacity>
@@ -118,12 +124,10 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         marginVertical: 8
-        // borderWidth: 0.3,
-        // borderColor: 'gray'
     },
     main_info: {
         flex: 1,
-        height: 120,
+        height: '100%',
         flexDirection: 'column',
         marginHorizontal: 8,
     },

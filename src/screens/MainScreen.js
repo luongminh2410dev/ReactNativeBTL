@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, FlatList, ScrollView, ImageBackground, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import { SliderBox } from "react-native-image-slider-box"
 import { connect } from 'react-redux'
 import ItemMenu from '../components/ItemMenu'
-import FlashSaleItem from '../components/FlashSaleItem'
-import ProductItem from '../components/ProductItem'
+import MainHeader from '../components/MainHeader'
+import FlashSale from '../components/FlashSale'
+import Product from '../components/Product'
 const slide_img = [
     'https://shopee.vn/affiliate/wp-content/uploads/2020/04/1200x628.jpg',
     'https://cf.shopee.vn/file/db967f3d3c48290131a6b4835c45817e',
@@ -54,86 +54,30 @@ const MainScreen = () => {
                             editable={true}
                         />
                     </View>
-                    <View style={styles.cart_view}>
+                    <TouchableOpacity style={styles.cart_view}>
                         <Text style={styles.cart_text}>7</Text>
                         <Ionicons name="cart-outline" size={34} color="white" />
-                    </View>
-                    <View style={styles.cart_view}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.cart_view}>
                         <Text style={styles.message_text}>7</Text>
                         <AntDesign name="message1" size={28} color="white" />
-                    </View>
+                    </TouchableOpacity>
                 </View>
 
+                <MainHeader
+                    slide_img={slide_img}
+                    menu_item={menu_item}
 
-                <SliderBox
-                    images={slide_img}
-                    sliderBoxHeight={180}
-                    dotColor={'white'}
-                    imageLoadingColor={'white'}
-                    resizeMode={'stretch'}
-                    autoplay={true}
-                    circleLoop={true}
                 />
-                {/* Menu */}
-                <FlatList
-                    style={styles.flat_list}
-                    numColumns={5}
-                    data={menu_item}
-                    keyExtractor={(item, index) => item.id.toString()}
-                    renderItem={({ item, index }) => (
-                        <ItemMenu
-                            item_menu={item}
-                        />
-                    )}
-                />
-
-
                 <View style={styles.list_container}>
                     {/* Flash Sale */}
-                    <View style={styles.fs_list}>
-                        <View style={styles.fs_list_header}>
-                            <Image
-                                style={styles.fs_list_img}
-                                source={{
-                                    uri: 'https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/fb1088de81e42c4e538967ec12cb5caa.png',
-                                }}
-                            />
-                            <TouchableOpacity
-                            >
-                                <Text style={styles.fs_list_btn}>Xem tất cả</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <FlatList
-                            style={styles.flat_list2}
-                            horizontal
-                            pagingEnabled={true}
-                            showsHorizontalScrollIndicator={false}
-                            legacyImplementation={false}
-                            data={fs_item}
-                            keyExtractor={(item, index) => item.id.toString()}
-                            renderItem={({ item, index }) => (
-                                <FlashSaleItem
-                                    item_fs={item}
-                                />
-                            )}
-                        />
-                    </View>
-                    <View styles={styles.product_list}>
-                        <View style={styles.product_list_header}>
-                            <Text style={styles.product_list_text}>GỢI Ý HÔM NAY</Text>
-                        </View>
-                        <FlatList
-                            style={styles.flat_list3}
-                            numColumns={2}
-                            data={fs_item}
-                            keyExtractor={(item, index) => item.id.toString()}
-                            renderItem={({ item, index }) => (
-                                <ProductItem
-                                    item_fs={item}
-                                />
-                            )}
-                        />
-                    </View>
+                    <FlashSale
+                        fs_item={fs_item}
+                    />
+                    {/* List product */}
+                    <Product
+                        fs_item={fs_item}
+                    />
                 </View>
             </View>
 
@@ -216,71 +160,8 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
 
-    // Header slide image
-    // Menu
-    flat_list: {
-        height: 300,
-        marginBottom: 0,
-        paddingBottom: 0,
-        flexGrow: 0,
-    },
-    flat_list2: {
-        height: 190,
-        marginBottom: 0,
-        paddingBottom: 0,
-    },
-    flat_list3: {
-        marginBottom: 0,
-        paddingBottom: 0,
-        paddingHorizontal: 3,
-    },
-
     list_container: {
         flexDirection: 'column',
         backgroundColor: '#eeeeee',
     },
-    // Flash Sale
-    fs_list: {
-        flexDirection: 'column',
-        marginTop: -120,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        marginBottom: 10,
-    },
-
-    fs_list_header: {
-        height: 30,
-        paddingTop: 4,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
-        alignItems: 'center',
-        borderBottomWidth: 0.4,
-    },
-    fs_list_img: {
-        height: 24,
-        width: 80,
-        resizeMode: 'stretch',
-    },
-    fs_list_btn: {
-        color: '#ee4d2d',
-    },
-
-    // Product list
-    product_list: {
-        flexDirection: 'column'
-    },
-    product_list_header: {
-        height: 40,
-        paddingTop: 4,
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    product_list_text: {
-        color: '#ee4d2d',
-        fontSize: 16,
-        fontWeight: '600'
-    }
 })
