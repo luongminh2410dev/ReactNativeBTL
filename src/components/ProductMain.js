@@ -1,10 +1,36 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
-export default class ShopInfo extends Component {
+import FlashSaleItem from './FlashSaleItem';
+
+export default class ProductMain extends Component {
     render() {
+        const { product, fs_item } = this.props;
         return (
             <View style={{ flexDirection: 'column' }}>
+                <View style={styles.header}>
+                    <Text style={styles.product_title}>
+                        <View style={styles.lovely}>
+                            <Text style={styles.lovely_txt}>Yêu thích</Text>
+                        </View> {product.name}
+                    </Text>
+
+                    <View style={styles.price_rate}>
+                        <Text style={styles.price}>₫ {product.price}</Text>
+                        <View style={styles.rate}>
+                            <View style={styles.star}>
+                                <AntDesign name="star" size={16} color="gold" style={styles.star} />
+                                <AntDesign name="star" size={16} color="gold" style={styles.star} />
+                                <AntDesign name="star" size={16} color="gold" style={styles.star} />
+                                <AntDesign name="star" size={16} color="gold" style={styles.star} />
+                                <AntDesign name="star" size={16} color="gold" style={styles.star} />
+                            </View>
+                            <Text style={styles.rate_txt}>{product.rate}</Text>
+                            <Text style={styles.rate_txt}> Đã bán {product.traded}</Text>
+                        </View>
+                    </View>
+                </View>
                 <View style={styles.shop}>
                     <View style={styles.shop_info}>
                         <View style={styles.shop_info_1}>
@@ -65,11 +91,81 @@ export default class ShopInfo extends Component {
                                 Nhập khẩu trực tiếp từ Nhật, nước giặt ARIEL MATIC phù hợp với các loại máy giặt, giặt sạch vết ố. mốc, dầu mỡ chỉ sau 1 lần giặt duy nhất</Text>
                     </View>
                 </View>
+                <View style={styles.fs_list}>
+                    <View style={styles.fs_list_header}>
+                        <Text style={styles.product_list_text}>Các sản phẩm khác của Shop</Text>
+                        <TouchableOpacity
+                        >
+                            <Text style={styles.fs_list_btn}>Xem tất cả</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        style={styles.flat_list2}
+                        horizontal
+                        pagingEnabled={true}
+                        showsHorizontalScrollIndicator={false}
+                        legacyImplementation={false}
+                        data={fs_item}
+                        keyExtractor={(item, index) => item.id.toString()}
+                        renderItem={({ item, index }) => (
+                            <FlashSaleItem
+                                item_fs={item}
+                            />
+                        )}
+                    />
+                </View>
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
+    header: {
+        width: '100%',
+        backgroundColor: 'white',
+        paddingHorizontal: 10,
+    },
+    product_title: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 6,
+        fontSize: 18,
+        fontWeight: '300',
+        textAlign: 'left'
+    },
+    lovely: {
+        backgroundColor: '#ee4d2d',
+        borderRadius: 2,
+        paddingHorizontal: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    lovely_txt: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    price_rate: {
+        width: '100%',
+        flexDirection: 'column',
+    },
+    price: {
+        fontSize: 20,
+        color: '#ee4d2d',
+        textAlign: 'left',
+    },
+    rate: {
+        flexDirection: 'row',
+        width: '100%',
+        marginTop: 24,
+    },
+    star: {
+        flexDirection: 'row'
+    },
+    rate_txt: {
+        marginHorizontal: 8,
+        fontSize: 14
+    },
     shop: {
         width: '100%',
         flexDirection: 'column',
@@ -193,5 +289,31 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         alignItems: 'center',
         borderBottomWidth: 0.4,
+    },
+    fs_list: {
+        flexDirection: 'column',
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        marginTop: 8
+    },
+    product_list_text: {
+        fontSize: 16,
+    },
+    fs_list_header: {
+        height: 30,
+        paddingVertical: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+        alignItems: 'center',
+        borderBottomWidth: 0.4,
+    },
+    fs_list_img: {
+        height: 24,
+        width: 80,
+        resizeMode: 'stretch',
+    },
+    fs_list_btn: {
+        color: '#ee4d2d',
     },
 })

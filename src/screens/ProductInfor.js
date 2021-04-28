@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { ScrollView, StyleSheet, Text, View, Image, FlatList, TouchableOpacity, Button } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import FlashSaleItem from '../components/FlashSaleItem'
-import MoreProduct from '../components/MoreProduct'
 import ProductButton from '../components/ProductButton'
-import ProductHeader from '../components/ProductHeader'
-import ShopInfo from '../components/ShopInfo'
+import ProductMain from '../components/ProductMain'
 const product = {
     id: 1,
     name: 'ARIEL MATIC NƯỚC GIẶT TÚI 3.5KG/3.2KG',
@@ -34,7 +29,7 @@ export default class ProductInfor extends Component {
             rate += index <= star ?
                 <AntDesign name="star" size={16} color="gold" style={styles.star} />
                 :
-                <AntDesign name="staro" size={20} color="gold" style={styles.star} />
+                <AntDesign name="staro" size={16} color="gold" style={styles.star} />
         }
         return rate
     }
@@ -50,12 +45,8 @@ export default class ProductInfor extends Component {
                             style={styles.product_img}
                             source={{ uri: product.url }}
                         />
-                        <ProductHeader
+                        <ProductMain
                             product={product}
-                            renderStar={this.renderStar()}
-                        />
-                        <ShopInfo />
-                        <MoreProduct
                             fs_item={fs_item}
                         />
                     </View>
