@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import CheckBox from '@react-native-community/checkbox';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import PropTypes from 'prop-types';
-export default class CartItem extends Component {
+export default class CartItem extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +17,11 @@ export default class CartItem extends Component {
     Decrease = () => {
         this.setState({ count: this.state.count - 1 });
     }
+
     render() {
-        const { cart_item } = this.props;
+        console.log('Render Cart Item')
+        const { fs_item, shop_name, onSetPrice, onRemoveProduct, index } = this.props;
+        const price = this.state.count * fs_item.price;
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -27,16 +30,16 @@ export default class CartItem extends Component {
                             disabled={false}
                             onCheckColor={'#ee4d2d'}
                             tintColor={'#ee4d2d', 'white'}
-                        // value={true}
-                        // onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                            onValueChange={(newValue) => onSetPrice(newValue, price)}
                         />
                         <MaterialIcons name="storefront" size={28} color="#000" />
-                        <Text style={styles.shop_name}>{cart_item.shop_name}</Text>
+                        <Text style={styles.shop_name}>{shop_name}</Text>
                     </View>
                     <TouchableOpacity
+                        onPress={() => onRemoveProduct(index)}
                         style={styles.header_2}
                     >
-                        <Text style={styles.header_2_txt}>Sửa</Text>
+                        <Text style={styles.header_2_txt}>Xóa</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.main}>
@@ -47,18 +50,18 @@ export default class CartItem extends Component {
                     />
                     <Image
                         style={styles.main_img}
-                        source={{ uri: cart_item.url }}
+                        source={{ uri: fs_item.url }}
                     />
                     <View style={styles.main_info}>
-                        <Text style={styles.name_product} >{cart_item.name}</Text>
+                        <Text style={styles.name_product} >{fs_item.name}</Text>
                         <View style={styles.main_info_sort}>
                             <Text style={styles.main_info_sort_txt}>Phân loại: Đen</Text>
                         </View>
-                        <Text style={styles.price}>₫ {cart_item.price}</Text>
+                        <Text style={styles.price}>₫ {fs_item.price}</Text>
                         <View style={styles.main_amount}>
                             <TouchableOpacity
                                 style={styles.amount_btn}
-                                onPress={() => this.Decrease()}
+                                onPress={this.Decrease}
                             >
                                 <AntDesign name="minus" size={20} color="#000" />
                             </TouchableOpacity>
@@ -67,7 +70,7 @@ export default class CartItem extends Component {
                             </View>
                             <TouchableOpacity
                                 style={styles.amount_btn}
-                                onPress={() => this.Increase()}
+                                onPress={this.Increase}
                             >
                                 <AntDesign name="plus" size={20} color="#000" />
                             </TouchableOpacity>

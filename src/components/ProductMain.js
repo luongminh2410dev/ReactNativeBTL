@@ -6,7 +6,7 @@ import FlashSaleItem from './FlashSaleItem';
 
 export default class ProductMain extends Component {
     render() {
-        const { product, fs_item } = this.props;
+        const { product, fs_item, shop_info } = this.props;
         return (
             <View style={{ flexDirection: 'column' }}>
                 <View style={styles.header}>
@@ -24,7 +24,8 @@ export default class ProductMain extends Component {
                                 <AntDesign name="star" size={16} color="gold" style={styles.star} />
                                 <AntDesign name="star" size={16} color="gold" style={styles.star} />
                                 <AntDesign name="star" size={16} color="gold" style={styles.star} />
-                                <AntDesign name="star" size={16} color="gold" style={styles.star} />
+                                <AntDesign name="staro" size={16} color="gold" style={styles.star} />
+                                {/* {() => this.props.onRenderStar(4)} */}
                             </View>
                             <Text style={styles.rate_txt}>{product.rate}</Text>
                             <Text style={styles.rate_txt}> Đã bán {product.traded}</Text>
@@ -36,14 +37,14 @@ export default class ProductMain extends Component {
                         <View style={styles.shop_info_1}>
                             <Image
                                 style={styles.shop_info_img}
-                                source={{ uri: 'https://cf.shopee.vn/file/cb1cde1786e843f50fc702d049b1e298_tn' }}
+                                source={{ uri: shop_info.img }}
                             />
                             <View style={styles.shop_info_name}>
-                                <Text style={{ fontSize: 16 }}>Lett12</Text>
+                                <Text style={{ fontSize: 16 }}>{shop_info.name}</Text>
                                 <Text style={{ fontSize: 12, marginVertical: 2, color: '#9686a1' }}>Online 6 phút trước</Text>
                                 <View style={styles.shop_location}>
                                     <EvilIcons name="location" size={16} color="#000" />
-                                    <Text style={{ fontSize: 12, color: '#9686a1' }}>Hà Nội</Text>
+                                    <Text style={{ fontSize: 12, color: '#9686a1' }}>{shop_info.location}</Text>
                                 </View>
                             </View>
                         </View>
@@ -55,15 +56,15 @@ export default class ProductMain extends Component {
                     </View>
                     <View style={styles.shop_info_2}>
                         <View style={styles.shop_more_info}>
-                            <Text style={styles.shop_more_info_1}>379</Text>
+                            <Text style={styles.shop_more_info_1}>{shop_info.products}</Text>
                             <Text style={styles.shop_more_info_2}>Sản phẩm</Text>
                         </View>
                         <View style={styles.shop_more_info}>
-                            <Text style={styles.shop_more_info_1}>4.8</Text>
+                            <Text style={styles.shop_more_info_1}>{shop_info.rate}</Text>
                             <Text style={styles.shop_more_info_2}>Đánh giá</Text>
                         </View>
                         <View style={styles.shop_more_info}>
-                            <Text style={styles.shop_more_info_1}>69%</Text>
+                            <Text style={styles.shop_more_info_1}>{shop_info.reply}</Text>
                             <Text style={styles.shop_more_info_2}>Phản hồi Chat</Text>
                         </View>
                     </View>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import MainHeader from '../components/MainHeader'
 import FlashSale from '../components/FlashSale'
 import Product from '../components/Product'
+import NumberFormat from 'react-number-format';
 const slide_img = [
     'https://shopee.vn/affiliate/wp-content/uploads/2020/04/1200x628.jpg',
     'https://cf.shopee.vn/file/db967f3d3c48290131a6b4835c45817e',
@@ -25,72 +26,66 @@ const menu_item = [
     { id: 9, name: 'Hàng Hiệu -50%', url: 'https://cf.shopee.vn/file/765ca66457ec08802f74c529f71a99b7_xhdpi&quot' },
     { id: 10, name: 'Shopee Premium', url: 'https://cf.shopee.vn/file/0a3e3aa16b083d6b7e2c25a8f2c16731_xhdpi&quot' },
 ]
-const fs_item = [
-    { id: 1, name: 'ARIEL MATIC NƯỚC GIẶT TÚI 3.5KG/3.2KG', shopid: 1, price: '15.000', origin: 'Trung Quốc', total: 10, traded: 2, progress: 0.9, url: 'https://cf.shopee.vn/file/bb7dc00839c48880405200d1ac03e05e_tn&quot' },
-    { id: 2, name: 'VÁY BÉ GÁI 2 LỚP DÁNG XÒE TAY 2 TẦNG SIÊU XINH XẮN BELLO LAND', shopid: 1, price: '2.000.000', origin: '', total: 1000, traded: 2, progress: 0.1, url: 'https://cf.shopee.vn/file/6ef0ee4fe0e94954541919d4d26cd90a_tn&quot' },
-    { id: 3, name: 'A', shopid: 1, price: '36.000', origin: 'Việt Nam', total: 21, traded: 20, progress: 0, url: 'https://cf.shopee.vn/file/736853cba44dc7d26afd0e46078b9451_tn&quot' },
-    { id: 4, name: 'B', shopid: 2, price: '1.000', origin: 'Lào', total: 300, traded: 100, progress: 0.5, url: 'https://cf.shopee.vn/file/1ba13ff64ba10e687a79847c48ef9528_tn&quot' },
-    { id: 5, name: 'C', shopid: 2, price: '99.000', origin: 'Việt Nam', total: 999, traded: 900, progress: 0.4, url: 'https://cf.shopee.vn/file/a0d0a6083a1fd0570bc795f3369b9b60_tn&quot' },
-    { id: 6, name: 'D', shopid: 3, price: '20.000', origin: 'Campuchia', total: 10, traded: 1, progress: 1, url: 'https://cf.shopee.vn/file/49007b236adc23e7e602e1e7f3a93780_tn&quot' },
-    { id: 7, name: 'E', shopid: 3, price: '1.999.000', origin: 'Trung Quốc', total: 100, traded: 56, progress: 0.1, url: 'https://cf.shopee.vn/file/1d0aa274da8569c6265103058552567c_tn&quot' },
-]
+class MainScreen extends Component {
+    render() {
+        const cart_result = [...this.props.my_cart];
+        return (
+            <ScrollView
+                style={{ flexDirection: 'column' }}
+            >
+                <View style={styles.container}>
 
-const shop_info = [
-    { shopid: 1, name: 'Lett12', location: 'Hà Nội', products: 379, rate: 4, reply: '69%' },
-    { shopid: 2, name: 'Luonvuituoi', location: 'TP HCM', products: 99, rate: 5, reply: '99%' },
-    { shopid: 3, name: 'Adudas', location: 'Nam Định', products: 15, rate: 2, reply: '20%' },
-]
-const MainScreen = () => {
-    return (
-        <ScrollView
-            style={{ flexDirection: 'column' }}
-            showsVerticalScrollIndicator={false}
-        >
-            <View style={styles.container}>
+                    {/* Header search */}
+                    <View style={styles.header_search}>
+                        <View style={styles.searchSection}>
+                            <AntDesign style={styles.searchIcon} name="search1" size={20} color="#000" />
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Find something..."
+                                underlineColorAndroid="transparent"
+                                editable={true}
+                            />
+                        </View>
+                        <TouchableOpacity style={styles.cart_view}>
+                            <Text style={styles.cart_text}>{cart_result.length}</Text>
+                            <Ionicons name="cart-outline" size={34} color="white" />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cart_view}>
+                            <Text style={styles.message_text}>7</Text>
+                            <AntDesign name="message1" size={28} color="white" />
+                        </TouchableOpacity>
+                    </View>
 
-                {/* Header search */}
-                <View style={styles.header_search}>
-                    <View style={styles.searchSection}>
-                        <AntDesign style={styles.searchIcon} name="search1" size={20} color="#000" />
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Find something..."
-                            underlineColorAndroid="transparent"
-                            editable={true}
+                    <MainHeader
+                        slide_img={slide_img}
+                        menu_item={menu_item}
+
+                    />
+                    <View style={styles.list_container}>
+                        {/* Flash Sale */}
+                        <FlashSale
+                            fs_item={this.props.fs_item}
+                        />
+                        {/* List product */}
+                        <Product
+                            fs_item={this.props.fs_item}
                         />
                     </View>
-                    <TouchableOpacity style={styles.cart_view}>
-                        <Text style={styles.cart_text}>7</Text>
-                        <Ionicons name="cart-outline" size={34} color="white" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cart_view}>
-                        <Text style={styles.message_text}>7</Text>
-                        <AntDesign name="message1" size={28} color="white" />
-                    </TouchableOpacity>
                 </View>
 
-                <MainHeader
-                    slide_img={slide_img}
-                    menu_item={menu_item}
+            </ScrollView>
+        )
+    }
 
-                />
-                <View style={styles.list_container}>
-                    {/* Flash Sale */}
-                    <FlashSale
-                        fs_item={fs_item}
-                    />
-                    {/* List product */}
-                    <Product
-                        fs_item={fs_item}
-                    />
-                </View>
-            </View>
-
-        </ScrollView>
-    )
 }
-
-export default MainScreen;
+const mapStateToProps = (state) => {
+    return {
+        fs_item: state.fs_item,
+        shop_info: state.shop_info,
+        my_cart: state.my_cart,
+    }
+}
+export default connect(mapStateToProps)(MainScreen);
 
 const styles = StyleSheet.create({
     // Header search
