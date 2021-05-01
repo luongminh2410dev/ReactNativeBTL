@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { connect } from 'react-redux'
-import MainHeader from '../components/MainHeader'
-import FlashSale from '../components/FlashSale'
-import Product from '../components/Product'
+import MainHeader from '../../components/MainHeader'
+import FlashSale from '../../components/FlashSale'
+import Product from '../../components/Product'
 import NumberFormat from 'react-number-format';
+import { fetchProduct } from '../../redux/slice/productSlide';
+import { fetchShop } from '../../redux/slice/shopSlice';
 const slide_img = [
     'https://shopee.vn/affiliate/wp-content/uploads/2020/04/1200x628.jpg',
     'https://cf.shopee.vn/file/db967f3d3c48290131a6b4835c45817e',
@@ -27,6 +29,10 @@ const menu_item = [
     { id: 10, name: 'Shopee Premium', url: 'https://cf.shopee.vn/file/0a3e3aa16b083d6b7e2c25a8f2c16731_xhdpi&quot' },
 ]
 class MainScreen extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchProduct()),
+            this.props.dispatch(fetchShop())
+    }
     render() {
         const cart_result = [...this.props.my_cart];
         return (
@@ -80,9 +86,9 @@ class MainScreen extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        fs_item: state.fs_item,
-        shop_info: state.shop_info,
-        my_cart: state.my_cart,
+        fs_item: state.products,
+        shop_info: state.shops,
+        my_cart: state.carts,
     }
 }
 export default connect(mapStateToProps)(MainScreen);

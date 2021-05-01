@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -10,75 +10,101 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 
-const LoginForm = () => {
-    return (
-        <View style={styles.container}>
+export default class LoginForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+        }
+    }
+    CheckLogin = () => {
+        const { username, password } = this.state;
+        if (username.length <= 0 || password.length <= 0) {
+            return alert('Bạn chưa nhập đủ thông tin')
+        }
+        this.props.onCheck(username, password, () => {
+            this.textUser.clear(),
+                this.textPass.clear(),
+                this.setState({ username: '', password: '' })
+        })
+    }
+    render() {
+        return (
+            <View style={styles.container}>
 
-            <Text style={styles.txt_login}>Đăng nhập</Text>
-            <Image
-                style={styles.logo}
-                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/541px-Shopee_logo.svg.png' }}
-            />
-            <View style={styles.login_form}>
-                {/* <Text style={styles.login_form_txt}>Tài khoản</Text> */}
-                <View style={styles.searchSection}>
-                    <AntDesign style={styles.searchIcon} name="user" size={30} color="#000" />
-                    <TextInput
-                        style={styles.input}
-                        editable={true}
-                        placeholder={'Email/Số điện thoại/Tên đăng nhập'} />
+                <Text style={styles.txt_login}>Đăng nhập</Text>
+                <Image
+                    style={styles.logo}
+                    source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/541px-Shopee_logo.svg.png' }}
+                />
+                <View style={styles.login_form}>
+                    {/* <Text style={styles.login_form_txt}>Tài khoản</Text> */}
+                    <View style={styles.searchSection}>
+                        <AntDesign style={styles.searchIcon} name="user" size={30} color="#000" />
+                        <TextInput
+                            onChangeText={(text) => (this.state.username = text)}
+                            style={styles.input}
+                            editable={true}
+                            placeholder={'Email/Số điện thoại/Tên đăng nhập'}
+                            ref={(refs) => (this.textUser = refs)} />
+                    </View>
+
+                    {/* <Text style={styles.login_form_txt}>Mật khẩu</Text> */}
+                    <View style={styles.searchSection}>
+                        <AntDesign style={styles.searchIcon} name="lock1" size={30} color="#000" />
+                        <TextInput
+                            onChangeText={(text) => (this.state.password = text)}
+                            style={styles.input}
+                            editable={true}
+                            secureTextEntry={true}
+                            placeholder={'Mật khẩu'}
+                            ref={(refs) => (this.textPass = refs)}
+                        />
+                    </View>
                 </View>
-
-                {/* <Text style={styles.login_form_txt}>Mật khẩu</Text> */}
-                <View style={styles.searchSection}>
-                    <AntDesign style={styles.searchIcon} name="lock1" size={30} color="#000" />
-                    <TextInput
-                        style={styles.input}
-                        editable={true}
-                        secureTextEntry={true}
-                        placeholder={'Mật khẩu'}
-                    />
-                </View>
-            </View>
-            <TouchableOpacity style={styles.btn}>
-                <Text style={styles.btn_text}>Đăng nhập</Text>
-            </TouchableOpacity>
-            <View style={styles.reg}>
-                <TouchableOpacity style={styles.reg_btn}>
-                    <Text style={styles.reg_btn_txt}>Đăng ký</Text>
+                <TouchableOpacity
+                    onPress={() => this.CheckLogin()}
+                    style={styles.btn}>
+                    <Text style={styles.btn_text}>Đăng nhập</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.reg_btn}>
-                    <Text style={styles.reg_btn_txt}>Đăng nhập bằng SMS</Text>
-                </TouchableOpacity>
-            </View>
-
-            <Text style={{ marginVertical: 40, textAlign: 'center', fontSize: 18, fontWeight: '300' }}>Hoặc</Text>
-
-            <View style={styles.login_other}>
-                <View style={styles.login_other_btn_gg} >
-                    <Image
-                        style={styles.login_img}
-                        source={{ uri: 'https://cdn.iconscout.com/icon/free/png-256/google-2981831-2476479.png' }}
-                    />
-                    <TouchableOpacity style={styles.login_gg}>
-                        <Text style={styles.login_gg_txt}>Tiếp tục với Google</Text>
+                <View style={styles.reg}>
+                    <TouchableOpacity style={styles.reg_btn}>
+                        <Text style={styles.reg_btn_txt}>Đăng ký</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.reg_btn}>
+                        <Text style={styles.reg_btn_txt}>Đăng nhập bằng SMS</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.login_other_btn_fb} >
-                    <Image
-                        style={styles.login_img}
-                        source={{ uri: 'https://cdn.iconscout.com/icon/free/png-256/facebook-logo-2019-1597680-1350125.png' }}
-                    />
-                    <TouchableOpacity style={styles.login_fb}>
-                        <Text style={styles.login_gg_txt}>Tiếp tục với Facebook</Text>
-                    </TouchableOpacity>
+
+                <Text style={{ marginVertical: 40, textAlign: 'center', fontSize: 18, fontWeight: '300' }}>Hoặc</Text>
+
+                <View style={styles.login_other}>
+                    <View style={styles.login_other_btn_gg} >
+                        <Image
+                            style={styles.login_img}
+                            source={{ uri: 'https://cdn.iconscout.com/icon/free/png-256/google-2981831-2476479.png' }}
+                        />
+                        <TouchableOpacity style={styles.login_gg}>
+                            <Text style={styles.login_gg_txt}>Tiếp tục với Google</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.login_other_btn_fb} >
+                        <Image
+                            style={styles.login_img}
+                            source={{ uri: 'https://cdn.iconscout.com/icon/free/png-256/facebook-logo-2019-1597680-1350125.png' }}
+                        />
+                        <TouchableOpacity style={styles.login_fb}>
+                            <Text style={styles.login_gg_txt}>Tiếp tục với Facebook</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-        </View>
-    );
+        );
+    }
+
 };
 
-export default LoginForm;
 
 const styles = StyleSheet.create({
     container: {

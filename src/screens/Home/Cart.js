@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
-import CartMain from '../components/CartMain'
+import CartMain from '../../components/CartMain'
+import { removeProduct } from '../../redux/slice/cartSlice';
+import { fetchProduct } from '../../redux/slice/productSlide';
+import { fetchShop } from '../../redux/slice/shopSlice';
 class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
             total: 10,
         }
+    }
+    componentDidMount() {
+        this.props.dispatch(fetchProduct()),
+            this.props.dispatch(fetchShop())
     }
     onSetPrice = (newValue, price) => {
         if (newValue) {
@@ -18,7 +25,7 @@ class Cart extends Component {
         }
     }
     onRemoveProduct = (id) => {
-        this.props.dispatch({ type: 'REMOVE_PRODUCT', id });
+        this.props.dispatch(removeProduct(id));
     }
     render() {
         console.log('Render Cart')
@@ -40,9 +47,9 @@ class Cart extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        fs_item: state.fs_item,
-        shop_info: state.shop_info,
-        my_cart: state.my_cart,
+        fs_item: state.products,
+        shop_info: state.shops,
+        my_cart: state.carts,
     }
 }
 export default connect(mapStateToProps)(Cart);

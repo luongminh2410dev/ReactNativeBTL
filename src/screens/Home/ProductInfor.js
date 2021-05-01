@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
-import { ScrollView, StyleSheet, Text, View, Image, FlatList, TouchableOpacity, Button } from 'react-native'
+import { ScrollView, StyleSheet, View, Image } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import ProductButton from '../components/ProductButton'
-import ProductMain from '../components/ProductMain'
+import ProductButton from '../../components/ProductButton'
+import ProductMain from '../../components/ProductMain'
 import { connect } from 'react-redux'
-
+import { fetchProduct } from '../../redux/slice/productSlide';
+import { fetchShop } from '../../redux/slice/shopSlice';
+import { addProduct } from '../../redux/slice/cartSlice'
 class ProductInfor extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchProduct()),
+            this.props.dispatch(fetchShop())
+    }
     // onRenderStar = (star) => {
     //     for (var index in 5) {
     //         console.log('Co')
@@ -16,10 +22,12 @@ class ProductInfor extends Component {
     //         )
     //     }
     // }
+
     onAddProduct = (id) => {
-        this.props.dispatch({ type: 'ADD_PRODUCT', id })
+        this.props.dispatch(addProduct(id))
     }
     render() {
+
         const { fs_item, shop_info, my_cart } = this.props;
         const more_product = fs_item.filter(product => {
             return product.shopid == shop_info[0].shopid
@@ -51,9 +59,9 @@ class ProductInfor extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        fs_item: state.fs_item,
-        shop_info: state.shop_info,
-        my_cart: state.my_cart,
+        fs_item: state.products,
+        shop_info: state.shops,
+        my_cart: state.carts,
     }
 }
 export default connect(mapStateToProps)(ProductInfor);

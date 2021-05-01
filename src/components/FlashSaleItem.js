@@ -4,6 +4,7 @@ import * as Progress from 'react-native-progress';
 export default class FlashSaleItem extends Component {
     render() {
         const { item_fs } = this.props;
+        const progress = item_fs.traded / item_fs.total;
         return (
             <View
                 key={item_fs.id}
@@ -13,7 +14,7 @@ export default class FlashSaleItem extends Component {
                     source={{ uri: item_fs.url }}
                 />
                 <Text style={styles.price}>₫ {item_fs.price}</Text>
-                <Progress.Bar color={'#ee4d2d'} progress={item_fs.progress} width={80} >
+                <Progress.Bar color={'#ee4d2d'} progress={progress} width={80} >
                 </Progress.Bar>
             </View>
         )
