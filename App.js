@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import StackContainerHome from './src/screens/Home'
 import StackContainerAuth from './src/screens/Auth'
 import Authencation from './src/helpers/handleLogin'
-const App = (props) => {
+const App = () => {
   const [token, setToken] = useState(null)
 
   const authContext = React.useMemo(

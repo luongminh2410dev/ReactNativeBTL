@@ -27,5 +27,5 @@ const account = createSlice({
     }
 });
 
-const { reducer, actions } = account;
+const { reducer } = account;
 export default reducer;

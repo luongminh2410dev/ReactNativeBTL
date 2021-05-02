@@ -6,15 +6,15 @@ import { removeProduct } from '../../redux/slice/cartSlice';
 import { fetchProduct } from '../../redux/slice/productSlide';
 import { fetchShop } from '../../redux/slice/shopSlice';
 class Cart extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchProduct()),
+            this.props.dispatch(fetchShop())
+    }
     constructor(props) {
         super(props);
         this.state = {
             total: 10,
         }
-    }
-    componentDidMount() {
-        this.props.dispatch(fetchProduct()),
-            this.props.dispatch(fetchShop())
     }
     onSetPrice = (newValue, price) => {
         if (newValue) {

@@ -9,31 +9,36 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
+
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: '',
+            password1: '',
+            password2: '',
         }
     }
-    checkLogin = () => {
-        const { username, password } = this.state;
-        if (username.length <= 0 || password.length <= 0) {
-            return alert('Bạn chưa nhập đủ thông tin')
-        }
-        this.props.onCheck(username, password, () => {
-            this.setState({ username: '', password: '' })
-            this.textUser.clear();
-            this.textPass.clear();
-            this.props.signIn();
-        })
-    }
+    // checkRegist = () => {
+    //     const { username, password1, password2 } = this.state;
+    //     if (username.length <= 0 || password1.length <= 0 || password2.length <= 0) {
+    //         return alert('Bạn chưa nhập đủ thông tin')
+    //     }
+    //     if (password2 !== password1) {
+    //         return alert('Mật khẩu phải giống nhau')
+    //     }
+    //     this.props.onRegist(username, password1, () => {
+    //         this.setState({ username: '', password1: '', password2: '' })
+    //         this.textUser.clear();
+    //         this.textPass1.clear();
+    //         this.textPass2.clear();
+    //     })
+    // }
     render() {
         return (
             <View style={styles.container}>
 
-                {/* <Text style={styles.txt_login}>Đăng nhập</Text> */}
+                {/* <Text style={styles.txt_login}>Đăng ký</Text> */}
                 <Image
                     style={styles.logo}
                     source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/541px-Shopee_logo.svg.png' }}
@@ -50,34 +55,34 @@ export default class LoginForm extends Component {
                             ref={(refs) => (this.textUser = refs)} />
                     </View>
 
-                    {/* <Text style={styles.login_form_txt}>Mật khẩu</Text> */}
                     <View style={styles.searchSection}>
                         <AntDesign style={styles.searchIcon} name="lock1" size={30} color="#000" />
                         <TextInput
-                            onChangeText={(text) => (this.state.password = text)}
+                            onChangeText={(text) => (this.state.password1 = text)}
                             style={styles.input}
                             editable={true}
                             secureTextEntry={true}
                             placeholder={'Mật khẩu'}
-                            ref={(refs) => (this.textPass = refs)}
+                            ref={(refs) => (this.textPass1 = refs)}
+                        />
+                    </View>
+                    <View style={styles.searchSection}>
+                        <AntDesign style={styles.searchIcon} name="lock1" size={30} color="#000" />
+                        <TextInput
+                            onChangeText={(text) => (this.state.password2 = text)}
+                            style={styles.input}
+                            editable={true}
+                            secureTextEntry={true}
+                            placeholder={'Xác nhận mật khẩu'}
+                            ref={(refs) => (this.textPass2 = refs)}
                         />
                     </View>
                 </View>
                 <TouchableOpacity
-                    onPress={() => this.checkLogin()}
+                    // onPress={() => this.checkLogin()}
                     style={styles.btn}>
-                    <Text style={styles.btn_text}>Đăng nhập</Text>
+                    <Text style={styles.btn_text}>Đăng ký</Text>
                 </TouchableOpacity>
-                <View style={styles.reg}>
-                    <TouchableOpacity
-                        onPress={() => this.props.onRegist()}
-                        style={styles.reg_btn}>
-                        <Text style={styles.reg_btn_txt}>Đăng ký</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.reg_btn}>
-                        <Text style={styles.reg_btn_txt}>Đăng nhập bằng SMS</Text>
-                    </TouchableOpacity>
-                </View>
 
                 <Text style={{ marginVertical: 40, textAlign: 'center', fontSize: 18, fontWeight: '300' }}>Hoặc</Text>
 
@@ -122,7 +127,7 @@ const styles = StyleSheet.create({
         height: 140,
         resizeMode: "cover",
         justifyContent: "center",
-        marginVertical: 50,
+        marginVertical: 40,
     },
 
     txt_login: {

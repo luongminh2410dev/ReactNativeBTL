@@ -9,6 +9,7 @@ import Product from '../../components/Product'
 import NumberFormat from 'react-number-format';
 import { fetchProduct } from '../../redux/slice/productSlide';
 import { fetchShop } from '../../redux/slice/shopSlice';
+import { useNavigation } from '@react-navigation/native';
 const slide_img = [
     'https://shopee.vn/affiliate/wp-content/uploads/2020/04/1200x628.jpg',
     'https://cf.shopee.vn/file/db967f3d3c48290131a6b4835c45817e',
@@ -28,62 +29,62 @@ const menu_item = [
     { id: 9, name: 'Hàng Hiệu -50%', url: 'https://cf.shopee.vn/file/765ca66457ec08802f74c529f71a99b7_xhdpi&quot' },
     { id: 10, name: 'Shopee Premium', url: 'https://cf.shopee.vn/file/0a3e3aa16b083d6b7e2c25a8f2c16731_xhdpi&quot' },
 ]
-class MainScreen extends Component {
-    componentDidMount() {
-        this.props.dispatch(fetchProduct()),
-            this.props.dispatch(fetchShop())
-    }
-    render() {
-        const cart_result = [...this.props.my_cart];
-        return (
-            <ScrollView
-                style={{ flexDirection: 'column' }}
-            >
-                <View style={styles.container}>
+const MainScreen = (props) => {
+    props.dispatch(fetchProduct())
+    props.dispatch(fetchShop())
+    const navigation = useNavigation();
+    const cart_result = [...props.my_cart];
+    return (
+        <ScrollView
+            style={{ flexDirection: 'column' }}
+        >
+            <View style={styles.container}>
 
-                    {/* Header search */}
-                    <View style={styles.header_search}>
-                        <View style={styles.searchSection}>
-                            <AntDesign style={styles.searchIcon} name="search1" size={20} color="#000" />
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Find something..."
-                                underlineColorAndroid="transparent"
-                                editable={true}
-                            />
-                        </View>
-                        <TouchableOpacity style={styles.cart_view}>
-                            <Text style={styles.cart_text}>{cart_result.length}</Text>
-                            <Ionicons name="cart-outline" size={34} color="white" />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.cart_view}>
-                            <Text style={styles.message_text}>7</Text>
-                            <AntDesign name="message1" size={28} color="white" />
-                        </TouchableOpacity>
-                    </View>
-
-                    <MainHeader
-                        slide_img={slide_img}
-                        menu_item={menu_item}
-
-                    />
-                    <View style={styles.list_container}>
-                        {/* Flash Sale */}
-                        <FlashSale
-                            fs_item={this.props.fs_item}
-                        />
-                        {/* List product */}
-                        <Product
-                            fs_item={this.props.fs_item}
+                {/* Header search */}
+                <View style={styles.header_search}>
+                    <View style={styles.searchSection}>
+                        <AntDesign style={styles.searchIcon} name="search1" size={20} color="#000" />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Find something..."
+                            underlineColorAndroid="transparent"
+                            editable={true}
                         />
                     </View>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Cart')}
+                        style={styles.cart_view}
+                    >
+                        <Text style={styles.cart_text}>{cart_result.length}</Text>
+                        <Ionicons name="cart-outline" size={34} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.cart_view}>
+                        <Text style={styles.message_text}>7</Text>
+                        <AntDesign name="message1" size={28} color="white" />
+                    </TouchableOpacity>
                 </View>
 
-            </ScrollView>
-        )
-    }
+                <MainHeader
+                    slide_img={slide_img}
+                    menu_item={menu_item}
 
+                />
+                <View style={styles.list_container}>
+                    {/* Flash Sale */}
+                    <FlashSale
+                        fs_item={props.fs_item}
+                    />
+                    {/* List product */}
+                    <Product
+                        fs_item={props.fs_item}
+                    />
+                </View>
+            </View>
+
+        </ScrollView>
+    )
 }
+
 const mapStateToProps = (state) => {
     return {
         fs_item: state.products,

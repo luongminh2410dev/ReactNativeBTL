@@ -1,26 +1,30 @@
 
 import React from 'react'
-import { View, Text, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import LoginForm from '../../components/LoginForm'
 import { fetchAcc } from '../../redux/slice/accSlice';
 import AuthContext from '../../helpers/handleLogin'
-const Login = () => {
+import { useNavigation } from '@react-navigation/native';
+const Login = (props) => {
+    const navigation = useNavigation();
     const { signIn } = React.useContext(AuthContext)
-    onCheck = async (user, pass, callback) => {
-        await this.props.dispatch(fetchAcc({ user, pass }))
-        if (this.props.account.length == 0) {
+    const onCheck = async (user, pass, callback) => {
+        await props.dispatch(fetchAcc({ user, pass }))
+        console.log(props.account)
+        if (props.account.length == 0) {
             return alert("Username or password wrong!")
         }
         else {
-            console.log('Success')
+            console.log('Success');
             callback()
         }
     }
+    const onRegist = () => navigation.navigate('Register')
     return (
         <LoginForm
-            // signIn={signIn}
-            onCheck={this.onCheck}
+            onRegist={onRegist}
+            signIn={signIn}
+            onCheck={onCheck}
         />
     )
 
