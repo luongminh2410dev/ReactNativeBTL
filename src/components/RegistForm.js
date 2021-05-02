@@ -19,21 +19,21 @@ export default class LoginForm extends Component {
             password2: '',
         }
     }
-    // checkRegist = () => {
-    //     const { username, password1, password2 } = this.state;
-    //     if (username.length <= 0 || password1.length <= 0 || password2.length <= 0) {
-    //         return alert('Bạn chưa nhập đủ thông tin')
-    //     }
-    //     if (password2 !== password1) {
-    //         return alert('Mật khẩu phải giống nhau')
-    //     }
-    //     this.props.onRegist(username, password1, () => {
-    //         this.setState({ username: '', password1: '', password2: '' })
-    //         this.textUser.clear();
-    //         this.textPass1.clear();
-    //         this.textPass2.clear();
-    //     })
-    // }
+    checkRegist = () => {
+        const { username, password1, password2 } = this.state;
+        if (username.length <= 0 || password1.length <= 0 || password2.length <= 0) {
+            return alert('Bạn chưa nhập đủ thông tin')
+        }
+        if (password2 !== password1) {
+            return alert('Mật khẩu phải giống nhau')
+        }
+        this.props.auth(username, password1, () => {
+            this.setState({ username: '', password1: '', password2: '' })
+            this.textUser.clear();
+            this.textPass1.clear();
+            this.textPass2.clear();
+        })
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -79,7 +79,7 @@ export default class LoginForm extends Component {
                     </View>
                 </View>
                 <TouchableOpacity
-                    // onPress={() => this.checkLogin()}
+                    onPress={() => this.checkRegist()}
                     style={styles.btn}>
                     <Text style={styles.btn_text}>Đăng ký</Text>
                 </TouchableOpacity>

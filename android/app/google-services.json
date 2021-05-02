@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443984220309",
+    "project_id": "fir-btl-fa683",
+    "storage_bucket": "fir-btl-fa683.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443984220309:android:c6375d5e9088368216cb9c",
+        "android_client_info": {
+          "package_name": "com.reacttest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443984220309-26tiuobqnoavda0k4to373uafcf15j5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBufuCqgTbbEKYl-E-laLpSaGrKL_D94Kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443984220309-26tiuobqnoavda0k4to373uafcf15j5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
