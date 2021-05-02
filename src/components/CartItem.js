@@ -1,22 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import CheckBox from '@react-native-community/checkbox';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import PropTypes from 'prop-types';
-export default class CartItem extends Component {
-    shouldComponentUpdate(newProps, newState) {
-        if (
-            newProps.fs_item === this.props.fs_item &&
-            newProps.shop_name === this.props.shop_name &&
-            newProps.onSetPrice === this.props.onSetPrice &&
-            newProps.onRemoveProduct === this.props.onRemoveProduct &&
-            newProps.index === this.props.index
-        ) {
-            return false;
-        }
-        return true;
-    }
+export default class CartItem extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {

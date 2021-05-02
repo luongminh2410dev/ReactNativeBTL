@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import ProductItem from './ProductItem'
 export default class Product extends Component {
     render() {
-        const { fs_item } = this.props;
+        const { fs_item, onMoveProduct } = this.props;
         return (
             <View styles={styles.product_list}>
                 <View style={styles.product_list_header}>
@@ -16,6 +16,7 @@ export default class Product extends Component {
                     keyExtractor={(item, index) => item.id.toString()}
                     renderItem={({ item, index }) => (
                         <ProductItem
+                            onMoveProduct={onMoveProduct}
                             item_fs={item}
                         />
                     )}

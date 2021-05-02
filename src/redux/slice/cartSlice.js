@@ -9,7 +9,8 @@ const cart = createSlice({
             state.push(action.id)
         },
         removeProduct: (state, action) => {
-            state.splice(action.id, 1)
+            console.log(action.index)
+            state.splice(action.index, 1)
         }
     }
 })

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -30,16 +30,22 @@ const menu_item = [
     { id: 10, name: 'Shopee Premium', url: 'https://cf.shopee.vn/file/0a3e3aa16b083d6b7e2c25a8f2c16731_xhdpi&quot' },
 ]
 const MainScreen = (props) => {
-    props.dispatch(fetchProduct())
-    props.dispatch(fetchShop())
+
     const navigation = useNavigation();
+    onMoveProduct = (id) => {
+        navigation.navigate('Product', { id: id, fs_item: props.fs_item, shop_info: props.shop_info })
+    }
     const cart_result = [...props.my_cart];
+    console.log('Main Render')
+    useEffect(() => {
+        props.dispatch(fetchProduct());
+        props.dispatch(fetchShop());
+    }, [props.my_cart])
     return (
         <ScrollView
             style={{ flexDirection: 'column' }}
         >
             <View style={styles.container}>
-
                 {/* Header search */}
                 <View style={styles.header_search}>
                     <View style={styles.searchSection}>
@@ -72,10 +78,12 @@ const MainScreen = (props) => {
                 <View style={styles.list_container}>
                     {/* Flash Sale */}
                     <FlashSale
+                        onMoveProduct={onMoveProduct}
                         fs_item={props.fs_item}
                     />
                     {/* List product */}
                     <Product
+                        onMoveProduct={onMoveProduct}
                         fs_item={props.fs_item}
                     />
                 </View>

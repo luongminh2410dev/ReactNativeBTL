@@ -28,6 +28,7 @@ export default class FlashSale extends Component {
                     keyExtractor={(item, index) => item.id.toString()}
                     renderItem={({ item, index }) => (
                         <FlashSaleItem
+                            onMoveProduct={this.props.onMoveProduct}
                             item_fs={item}
                         />
                     )}

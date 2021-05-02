@@ -7,8 +7,8 @@ import { fetchProduct } from '../../redux/slice/productSlide';
 import { fetchShop } from '../../redux/slice/shopSlice';
 class Cart extends Component {
     componentDidMount() {
-        this.props.dispatch(fetchProduct()),
-            this.props.dispatch(fetchShop())
+        this.props.dispatch(fetchProduct());
+        this.props.dispatch(fetchShop());
     }
     constructor(props) {
         super(props);
@@ -24,11 +24,12 @@ class Cart extends Component {
             this.setState({ total: this.state.total - price })
         }
     }
-    onRemoveProduct = (id) => {
-        this.props.dispatch(removeProduct(id));
+    onRemoveProduct = (index) => {
+        this.props.dispatch(removeProduct(index));
     }
     render() {
         console.log('Render Cart')
+        // Loc cac product o trong cart
         const cart_product = this.props.fs_item.filter(product => {
             return product.id == this.props.my_cart.find(item => {
                 return item === product.id

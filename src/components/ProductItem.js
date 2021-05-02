@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import React, { PureComponent } from 'react'
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types';
 
-export default class ProductItem extends Component {
+export default class ProductItem extends PureComponent {
     static propTypes = {
         item_fs: PropTypes.object,
     }
@@ -10,9 +10,11 @@ export default class ProductItem extends Component {
         item_fs: []
     }
     render() {
-        const { item_fs } = this.props;
+        const { item_fs, onMoveProduct } = this.props;
+
         return (
-            <View
+            <TouchableOpacity
+                onPress={() => onMoveProduct(item_fs.id)}
                 key={item_fs.id}
                 style={styles.container}>
                 <Image
@@ -24,7 +26,7 @@ export default class ProductItem extends Component {
                     <Text style={styles.price}>₫ {item_fs.price}</Text>
                     <Text style={styles.traded}>Đã bán {item_fs.traded}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }

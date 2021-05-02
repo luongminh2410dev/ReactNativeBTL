@@ -6,20 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 const Register = (props) => {
     const navigation = useNavigation();
-    // const onRegist = (email, password) => {
-    //     firebaseApp.auth().createUserWithEmailAndPassword(email, password)
-    //         .then((userCredential) => {
-    //             // Signed in 
-    //             var user = userCredential.user;
-    //             alert('Đăng ký thành công');
-    //             navigation.navigate('Login');
-    //         })
-    //         .catch((error) => {
-    //             var errorCode = error.code;
-    //             var errorMessage = error.message;
-    //             // ..
-    //         });
-    // }
     const createAcc = (user, pass, cb) => {
         auth()
             .createUserWithEmailAndPassword(user, pass)
@@ -36,7 +22,6 @@ const Register = (props) => {
                 if (error.code === 'auth/invalid-email') {
                     alert('That email address is invalid!');
                 }
-
                 alert(error);
             });
     }

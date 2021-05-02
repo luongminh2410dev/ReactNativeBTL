@@ -1,12 +1,13 @@
-import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import React, { PureComponent } from 'react'
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import * as Progress from 'react-native-progress';
-export default class FlashSaleItem extends Component {
+export default class FlashSaleItem extends PureComponent {
     render() {
-        const { item_fs } = this.props;
+        const { item_fs, onMoveProduct } = this.props;
         const progress = item_fs.traded / item_fs.total;
         return (
-            <View
+            <TouchableOpacity
+                onPress={() => onMoveProduct(item_fs.id)}
                 key={item_fs.id}
                 style={styles.container}>
                 <Image
@@ -16,7 +17,7 @@ export default class FlashSaleItem extends Component {
                 <Text style={styles.price}>₫ {item_fs.price}</Text>
                 <Progress.Bar color={'#ee4d2d'} progress={progress} width={80} >
                 </Progress.Bar>
-            </View>
+            </TouchableOpacity>
         )
     }
 
