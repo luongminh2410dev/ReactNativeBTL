@@ -1,14 +1,25 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import CheckBox from '@react-native-community/checkbox';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import PropTypes from 'prop-types';
-export default class CartItem extends PureComponent {
+export default class CartItem extends Component {
+    shouldComponentUpdate(newProps, newState) {
+        // if (newProps.fs_item === this.props.fs_item && newProps.shop_name === this.props.shop_name, newProps.index === this.props.index) {
+        if (newState.count !== this.state.count && newState.checked === this.state.checked) {
+            return true;
+        }
+        else {
+            return false;
+
+        }
+    }
     constructor(props) {
         super(props);
         this.state = {
             count: 1,
+            checked: false,
         };
     }
     Increase = () => {
@@ -18,10 +29,14 @@ export default class CartItem extends PureComponent {
         this.setState({ count: this.state.count - 1 });
     }
 
+
     render() {
-        console.log('Render Cart Item')
-        const { fs_item, shop_name, onSetPrice, onRemoveProduct, index } = this.props;
+        const { fs_item, shop_name, onSetPrice, onRemoveProduct } = this.props;
         const price = this.state.count * fs_item.price;
+        const setChecked = async () => {
+            await this.setState({ checked: !this.state.checked });
+            onSetPrice(this.state.checked, price);
+        }
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -30,13 +45,14 @@ export default class CartItem extends PureComponent {
                             disabled={false}
                             onCheckColor={'#ee4d2d'}
                             tintColor={'#ee4d2d', 'white'}
-                            onValueChange={(newValue) => onSetPrice(newValue, price)}
+                            value={this.state.checked}
+                            onValueChange={() => setChecked()}
                         />
                         <MaterialIcons name="storefront" size={28} color="#000" />
                         <Text style={styles.shop_name}>{shop_name}</Text>
                     </View>
                     <TouchableOpacity
-                        onPress={() => onRemoveProduct(index)}
+                        onPress={() => onRemoveProduct(fs_item.id)}
                         style={styles.header_2}
                     >
                         <Text style={styles.header_2_txt}>Xóa</Text>

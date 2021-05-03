@@ -36,7 +36,6 @@ const MainScreen = (props) => {
         navigation.navigate('Product', { id: id, fs_item: props.fs_item, shop_info: props.shop_info })
     }
     const cart_result = [...props.my_cart];
-    console.log('Main Render')
     useEffect(() => {
         props.dispatch(fetchProduct());
         props.dispatch(fetchShop());

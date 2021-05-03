@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { ScrollView, StyleSheet, View, Image } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { connect } from 'react-redux'
@@ -35,6 +35,7 @@ const ProductInfor = (props) => {
                 </View>
             </ScrollView>
             <ProductButton
+                id={id}
                 onAddProduct={onAddProduct}
             />
         </View>

@@ -4,7 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 export default class ProductButton extends Component {
     render() {
-        const { onAddProduct } = this.props
+        const { onAddProduct, id } = this.props
         return (
             <View style={styles.btn_footer}>
                 <View style={styles.btn_footer_1}>
@@ -12,7 +12,7 @@ export default class ProductButton extends Component {
                         <AntDesign name="message1" size={26} color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => onAddProduct(0)}
+                        onPress={() => onAddProduct(id)}
                         style={styles.btn_add}>
                         <MaterialCommunityIcons name="cart-arrow-down" size={26} color="white" />
                     </TouchableOpacity>

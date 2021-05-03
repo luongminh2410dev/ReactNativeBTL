@@ -5,7 +5,6 @@ import CartItem from '../components/CartItem';
 import CheckBox from '@react-native-community/checkbox';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 export default function TabViewExample(props) {
-    console.log('Render CartMain')
     const FirstRoute = () => (
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <ScrollView
@@ -18,7 +17,6 @@ export default function TabViewExample(props) {
                             renderItem={({ item, index }) => {
                                 return (
                                     <CartItem
-                                        index={index}
                                         onRemoveProduct={props.onRemoveProduct}
                                         onSetPrice={props.onSetPrice}
                                         fs_item={item}

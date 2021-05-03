@@ -13,7 +13,7 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            total: 10,
+            total: 0,
         }
     }
     onSetPrice = (newValue, price) => {
@@ -28,7 +28,6 @@ class Cart extends Component {
         this.props.dispatch(removeProduct(index));
     }
     render() {
-        console.log('Render Cart')
         // Loc cac product o trong cart
         const cart_product = this.props.fs_item.filter(product => {
             return product.id == this.props.my_cart.find(item => {
